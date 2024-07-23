@@ -123,4 +123,65 @@ ggsave('Experience Plot.png', plot = exp_plot, height = 4, width = 6)
 
 # The designations that are paid more
 
+summarised_data <- data %>% 
+  dplyr::group_by(DESIGNATION) %>% 
+  dplyr::summarise(mean_salary = mean(SALARY))
 
+designation_based_salary <- ggplot(data = summarised_data, aes(x = DESIGNATION, y = mean_salary)) +
+  geom_bar(stat = 'identity', fill = 'blue', color = 'white') +
+  labs(
+    title = 'DESIGNATION BASED SALARIES',
+    subtitle = 'Bar graph showing the mean salaries of different designations',
+    x = 'DESIGNATONS',
+    y = 'Mean Salaries'
+  )
+ggsave('Designations mean salaries.png', plot = designation_based_salary, height =4, width = 6)
+
+
+# which age groups are paid more
+age_summaried_data <- data %>% 
+  dplyr::group_by(AGE) %>% 
+  dplyr::summarise(age_mean_salary = mean(SALARY))
+
+age_based_salary <- ggplot(data = age_summaried_data, aes(x = AGE,y = age_mean_salary)) +
+  geom_histogram(stat = 'identity', fill = 'blue', color = 'black') +
+  labs(
+    title ='AGE BASED MEAN SALARIES' ,
+    subtitle = 'Bar grapg showing the mean salaries of different age groups',
+    x= 'AGE GROUPS',
+    y = 'Mean Salaries'
+  )
+ggsave('Age based salary.png', plot = age_based_salary, height = 4, width = 6)
+
+
+# which past experience is paid more
+
+exp_avg_pay <- data %>% 
+  dplyr::group_by(PAST.EXP) %>% 
+  dplyr::summarise(avg_salary = mean(SALARY))
+
+exp_based_salaries <- ggplot(data = exp_avg_pay, aes(x = PAST.EXP, y = avg_salary)) +
+  geom_bar(stat = 'identity', fill = 'darkblue', color = 'lightblue') +
+  labs(
+    title = 'EXPERIENCE BASED SALARIES',
+    subtitle = 'Bar graph showing the Average Baesd Mean Salaries',
+    x = 'EXPERIENCE',
+    y = 'MEAN SALARIES'
+  )
+ggsave('Experience based mean Salaries.png', plot = exp_based_salaries, height = 4, width = 6)
+
+# which units are paid more
+
+unit_based_salaries <- data %>% 
+  dplyr::group_by(UNIT) %>% 
+  dplyr::summarise(avg_unit_salary = mean(SALARY))
+
+unit_based_salary_plot <- ggplot(data = unit_based_salaries, aes(x = UNIT, y = avg_unit_salary)) +
+  geom_bar(stat = 'identity', fill= 'darkblue', color = 'black') +
+  labs(
+    title = 'UNIT BASED SALARIES',
+    subtitle = 'Bar graph shoWing the average salaries for different UNITS',
+    x = 'UNIT',
+    y = 'AVERAGE SALARY'
+  )
+ggsave('Unit based salary.png', plot = unit_based_salary_plot, height = 4, width = 6)
